@@ -166,16 +166,16 @@ function isLoggedIn(req, res, next) {
     const token = req.cookies.token;
 
     if (!token) {
-        return res.redirect('/login');  // Token is missing, send response and return
+        return res.redirect('/login');  
     }
 
     try {
-        let data = jwt.verify(token, 'secretkey');  // Verify JWT
+        let data = jwt.verify(token, 'secretkey'); 
         req.currentUser = data;  
-        console.log(data)// Attach decoded data to the request object
-        next();  // Proceed to the next middleware or route handler
+        console.log(data)
+        next();  
     } catch (err) {
-        return res.status(401).send('Invalid or expired token');  // Handle invalid token error
+        return res.status(401).send('Invalid or expired token');  
     }
 }
 
@@ -194,7 +194,7 @@ app.get('/feed' , isLoggedIn , async (req,res) => {
 
 
 
-app.listen(3000,(err) => {
+app.listen(process.env.PORT || 3000,(err) => {
     if(err){
         console.log(err)
     }else{
